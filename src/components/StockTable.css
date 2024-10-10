@@ -1,0 +1,30 @@
+/* StockTable.css */
+
+/* Add borders around the table */
+.stock-table {
+	border: 1px solid #dee2e6;
+	border-radius: 0.25rem;
+}
+
+/* Make table header bold and black */
+.stock-table thead.table-header th {
+	color: white !important; /* Ensure white text */
+	font-weight: bold;
+	background-color: black !important; /* Ensure black background */
+}
+
+/* Beautify rows with alternating colors */
+.stock-table tbody tr:nth-of-type(odd) {
+	background-color: #f2f2f2;
+}
+
+.stock-table tbody tr:hover {
+	background-color: #e9ecef; /* Light gray on hover */
+}
+
+/* Add padding to table cells */
+.stock-table th,
+.stock-table td {
+	padding: 0.75rem;
+	vertical-align: middle;
+}
