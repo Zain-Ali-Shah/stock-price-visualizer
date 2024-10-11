@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
+import Papa from "papaparse"; // For CSV conversion
+import { saveAs } from "file-saver"; // For downloading the CSV file
 
 const BalanceSheetTable = () => {
 	const [balanceSheetData, setBalanceSheetData] = useState(null);
@@ -37,6 +39,33 @@ const BalanceSheetTable = () => {
 		fetchBalanceSheetData();
 	}, []);
 
+	// Function to download the balance sheet data as a CSV file
+	const downloadCSV = () => {
+		if (!balanceSheetData) return;
+
+		// Prepare the CSV data
+		const csvData = balanceSheetData.map((row) => ({
+			Year: row.year,
+			Quarter: row.quarter,
+			Currency: row.currency,
+			"Cash & Short Term Investments": row.cash_and_short_term_investments,
+			"Total Assets": row.total_assets,
+			"Total Liabilities": row.total_liabilities,
+			"Total Equity": row.total_equity,
+			"Shares Outstanding": row.shares_outstanding,
+			"Price to Book": row.price_to_book,
+			"Return on Assets (%)": row.return_on_assets_percent,
+			"Return on Capital (%)": row.return_on_capital_percent,
+		}));
+
+		// Convert the data to CSV format
+		const csv = Papa.unparse(csvData);
+
+		// Create a Blob from the CSV and trigger a download
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "balance_sheet_data.csv");
+	};
+
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>{error}</p>;
 
@@ -45,7 +74,11 @@ const BalanceSheetTable = () => {
 			<h3>Company Balance Sheet Data</h3>
 			{balanceSheetData ? (
 				<>
-					{/* <pre>{JSON.stringify(balanceSheetData, null, 2)}</pre> */}
+					{/* Button to download CSV */}
+					<button onClick={downloadCSV} className="btn btn-primary mb-3">
+						Download CSV
+					</button>
+
 					<Table striped bordered hover responsive>
 						<thead>
 							<tr>

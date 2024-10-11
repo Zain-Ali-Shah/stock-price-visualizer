@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
+import Papa from "papaparse"; // For CSV conversion
+import { saveAs } from "file-saver"; // For downloading the CSV file
 
 const IncomeStatement = () => {
 	const [incomeData, setIncomeData] = useState(null);
@@ -33,10 +35,41 @@ const IncomeStatement = () => {
 		fetchData();
 	}, []);
 
+	// Function to download the income statement data as a CSV file
+	const downloadCSV = () => {
+		if (!incomeData) return;
+
+		// Prepare the CSV data
+		const csvData = incomeData.income_statement.map((item) => ({
+			Year: item.year,
+			Quarter: item.quarter,
+			Currency: item.currency,
+			Revenue: item.revenue,
+			"Operating Expense": item.operating_expense,
+			"Net Income": item.net_income,
+			"Net Profit Margin": item.net_profit_margin,
+			"Earnings Per Share": item.earnings_per_share,
+			EBITDA: item.EBITDA,
+			"Effective Task Rate Percent": item.effective_task_rate_percent,
+		}));
+
+		// Convert the data to CSV format
+		const csv = Papa.unparse(csvData);
+
+		// Create a Blob from the CSV and trigger a download
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "income_statement_data.csv");
+	};
+
 	return (
 		<div>
 			<h3>Company Income Statement</h3>
-			{/* <pre>{JSON.stringify(incomeData, null, 2)}</pre> */}
+
+			{/* Button to download CSV */}
+			<button onClick={downloadCSV} className="btn btn-primary mb-3">
+				Download CSV
+			</button>
+
 			{incomeData ? (
 				<Table striped bordered hover responsive>
 					<thead>

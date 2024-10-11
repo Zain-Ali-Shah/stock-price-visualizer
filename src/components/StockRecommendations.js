@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
+import Papa from "papaparse";
+import { saveAs } from "file-saver";
 
 const StockRecommendations = () => {
-	// State variables for data, loading status, and error handling
 	const [recommendations, setRecommendations] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		// Define the async function to fetch data
 		const fetchRecommendations = async () => {
 			const options = {
 				method: "GET",
 				url: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-recommendations",
-				params: { symbol: "MSFT" }, // Example stock symbol: Intel (INTC)
+				params: { symbol: "MSFT" },
 				headers: {
 					"x-rapidapi-key":
 						"3db9226ad1mshca8d9d6faf15af9p17d01fjsne8e43d0bb590",
@@ -23,42 +23,81 @@ const StockRecommendations = () => {
 			};
 
 			try {
-				// Fetch data using Axios
 				const response = await axios.request(options);
-				console.log(response.data.finance.result);
-				setRecommendations(response.data.finance.result); // Store the response data
-				setLoading(false); // Stop loading spinner
+				setRecommendations(response.data.finance.result);
+				setLoading(false);
 			} catch (error) {
-				// Handle error
 				setError("Failed to fetch recommendations.");
-				setLoading(false); // Stop loading spinner even on error
+				setLoading(false);
 			}
 		};
 
-		// Trigger the data fetch
 		fetchRecommendations();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []); // Empty dependency array ensures this runs only once when the component mounts
+	}, []);
 
-	// Conditional rendering based on loading and error state
+	// Function to download data as CSV
+	const downloadCSV = () => {
+		if (!recommendations || !recommendations[0]) return;
+
+		// Extract quotes data
+		const csvData = recommendations[0].quotes.map((item) => ({
+			language: item.language,
+			region: item.region,
+			quoteType: item.quoteType,
+			typeDisp: item.typeDisp,
+			quoteSourceName: item.quoteSourceName,
+			triggerable: item.triggerable ? "True" : "False",
+			customPriceAlertConfidence: item.customPriceAlertConfidence,
+			postMarketChangePercent: item.postMarketChangePercent,
+			postMarketTime: item.postMarketTime,
+			postMarketPrice: item.postMarketPrice,
+			postMarketChange: item.postMarketChange,
+			regularMarketChange: item.regularMarketChange,
+			regularMarketChangePercent: item.regularMarketChangePercent,
+			regularMarketTime: item.regularMarketTime,
+			regularMarketPrice: item.regularMarketPrice,
+			regularMarketPreviousClose: item.regularMarketPreviousClose,
+			exchange: item.exchange,
+			market: item.market,
+			fullExchangeName: item.fullExchangeName,
+			shortName: item.shortName,
+			marketState: item.marketState,
+			sourceInterval: item.sourceInterval,
+			exchangeDataDelayedBy: item.exchangeDataDelayedBy,
+			exchangeTimezoneName: item.exchangeTimezoneName,
+			exchangeTimezoneShortName: item.exchangeTimezoneShortName,
+			gmtOffSetMilliseconds: item.gmtOffSetMilliseconds,
+			esgPopulated: item.esgPopulated ? "True" : "False",
+			tradeable: item.tradeable ? "True" : "False",
+			cryptoTradeable: item.cryptoTradeable ? "True" : "False",
+			hasPrePostMarketData: item.hasPrePostMarketData ? "True" : "False",
+			firstTradeDateMilliseconds: item.firstTradeDateMilliseconds,
+			priceHint: item.priceHint,
+			symbol: item.symbol,
+		}));
+
+		// Convert data to CSV format using Papaparse
+		const csv = Papa.unparse(csvData);
+
+		// Create a Blob and download it as a CSV file
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "stock_recommendations.csv");
+	};
+
 	if (loading) {
-		return <p>Loading...</p>; // Display loading message
+		return <p>Loading...</p>;
 	}
 
 	if (error) {
-		return <p>{error}</p>; // Display error message
+		return <p>{error}</p>;
 	}
 
-	// Check if recommendations exist
-	// if (!recommendations || !recommendations.recommendationTrend) {
-	// 	return <p>No recommendations available.</p>;
-	// }
-
-	// Display stock recommendations
 	return (
 		<div>
 			<h2>Stock Recommendations for MSFT</h2>
-			{/* <pre>{JSON.stringify(recommendations[0], null, 2)}</pre> */}
+			<Button onClick={downloadCSV} className="mb-3">
+				Download CSV
+			</Button>
 			<div className="table-responsive">
 				<Table striped bordered hover responsive>
 					<thead className="thead-dark">

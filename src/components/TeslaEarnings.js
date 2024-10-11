@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
+import Papa from "papaparse";
+import { saveAs } from "file-saver";
 
 const TeslaEarnings = () => {
 	const [earningsData, setEarningsData] = useState(null); // To store the API response data
@@ -35,6 +37,60 @@ const TeslaEarnings = () => {
 		fetchEarningsData();
 	}, []);
 
+	// Function to download CSV for quarterly earnings data
+	const downloadQuarterlyEarningsCSV = () => {
+		if (
+			!earningsData ||
+			!earningsData.earningsChart ||
+			!earningsData.earningsChart.quarterly
+		)
+			return;
+		const csvData = earningsData.earningsChart.quarterly.map((entry) => ({
+			Date: entry.date,
+			"Actual Earnings": entry.actual.fmt,
+			"Estimated Earnings": entry.estimate.fmt,
+		}));
+		const csv = Papa.unparse(csvData);
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "tesla_quarterly_earnings.csv");
+	};
+
+	// Function to download CSV for yearly financial data
+	const downloadYearlyFinancialCSV = () => {
+		if (
+			!earningsData ||
+			!earningsData.financialsChart ||
+			!earningsData.financialsChart.yearly
+		)
+			return;
+		const csvData = earningsData.financialsChart.yearly.map((entry) => ({
+			Date: entry.date,
+			Revenue: entry.revenue.longFmt,
+			Earnings: entry.earnings.longFmt,
+		}));
+		const csv = Papa.unparse(csvData);
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "tesla_yearly_financials.csv");
+	};
+
+	// Function to download CSV for quarterly financial data
+	const downloadQuarterlyFinancialCSV = () => {
+		if (
+			!earningsData ||
+			!earningsData.financialsChart ||
+			!earningsData.financialsChart.quarterly
+		)
+			return;
+		const csvData = earningsData.financialsChart.quarterly.map((entry) => ({
+			Date: entry.date,
+			Revenue: entry.revenue.longFmt,
+			Earnings: entry.earnings.longFmt,
+		}));
+		const csv = Papa.unparse(csvData);
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "tesla_quarterly_financials.csv");
+	};
+
 	// Display loading message
 	if (loading) {
 		return <p>Loading...</p>;
@@ -45,20 +101,17 @@ const TeslaEarnings = () => {
 		return <p>{error}</p>;
 	}
 
-	// Check if earnings data exists and display it
-	// if (!earningsData || !earningsData.earnings) {
-	// 	return <p>No earnings data available for Tesla.</p>;
-	// }
-
 	return (
 		<div>
 			<h2>Tesla Earnings Data</h2>
-			{/* <pre>{JSON.stringify(earningsData, null, 2)}</pre> */}
 			{earningsData &&
 			earningsData.earningsChart &&
 			earningsData.earningsChart.quarterly ? (
 				<>
-					<h4>Earning Chart Quarterly Data</h4>
+					<h4>Earnings Chart Quarterly Data</h4>
+					<Button onClick={downloadQuarterlyEarningsCSV} className="mb-3">
+						Download Quarterly Earnings CSV
+					</Button>
 					<div className="container mt-4">
 						<Table striped bordered hover responsive>
 							<thead className="thead-dark">
@@ -79,7 +132,11 @@ const TeslaEarnings = () => {
 							</tbody>
 						</Table>
 					</div>
+
 					<h4>Financial Chart Yearly Data</h4>
+					<Button onClick={downloadYearlyFinancialCSV} className="mb-3">
+						Download Yearly Financial CSV
+					</Button>
 					<div className="container mt-4">
 						<Table striped bordered hover responsive>
 							<thead className="thead-dark">
@@ -100,7 +157,11 @@ const TeslaEarnings = () => {
 							</tbody>
 						</Table>
 					</div>
+
 					<h4>Financial Chart Quarterly Data</h4>
+					<Button onClick={downloadQuarterlyFinancialCSV} className="mb-3">
+						Download Quarterly Financial CSV
+					</Button>
 					<div className="container mt-4">
 						<Table striped bordered hover responsive>
 							<thead className="thead-dark">

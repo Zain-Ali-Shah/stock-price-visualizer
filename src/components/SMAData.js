@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
+import Papa from "papaparse";
+import { saveAs } from "file-saver";
 
 const SMAData = () => {
 	// State variables for the fetched data, loading status, and error handling
@@ -42,6 +44,26 @@ const SMAData = () => {
 		fetchSMAData();
 	}, []); // Empty array ensures this effect runs only once on component mount
 
+	// Function to download data as CSV
+	const downloadCSV = () => {
+		if (!data || !data["Technical Analysis: SMA"]) return;
+
+		// Extract the time series data and map it to a CSV-ready format
+		const csvData = Object.keys(data["Technical Analysis: SMA"]).map(
+			(time) => ({
+				Time: time,
+				SMA: data["Technical Analysis: SMA"][time]["SMA"],
+			})
+		);
+
+		// Convert data to CSV format using Papaparse
+		const csv = Papa.unparse(csvData);
+
+		// Create a Blob and download it as a CSV file
+		const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "sma_data.csv");
+	};
+
 	// Conditional rendering based on loading and error state
 	if (loading) {
 		return <p>Loading...</p>; // Display loading message
@@ -55,7 +77,9 @@ const SMAData = () => {
 	return (
 		<div>
 			<h2>SMA Data for MSFT</h2>
-			{/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+			<Button onClick={downloadCSV} className="mb-3">
+				Download CSV
+			</Button>
 			<Table striped bordered hover responsive>
 				<thead className="thead-dark">
 					<tr>
