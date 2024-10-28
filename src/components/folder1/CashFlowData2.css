@@ -1,0 +1,61 @@
+@media (min-width: 992px) {
+	.chart-container {
+		display: flex;
+		flex-direction: column; /* Stack rows vertically */
+		gap: 20px; /* Space between rows */
+		padding: 20px;
+	}
+
+	.chart-row {
+		display: flex;
+		justify-content: space-between; /* Distribute space evenly */
+		gap: 20px; /* Space between charts */
+	}
+
+	.chart-row > div {
+		flex: 1; /* Ensure equal width for each chart */
+		max-width: 48%; /* Adjust width to fit two charts per row */
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+}
+
+/* General Table Styles */
+.table-container {
+	width: 100%;
+	overflow-x: auto; /* Enable horizontal scroll */
+}
+
+.responsive-table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 600px; /* Ensures the table doesn't shrink too much */
+}
+
+.responsive-table th,
+.responsive-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+/* Sticky Header for a Better UX */
+.responsive-table thead th {
+	position: sticky;
+	top: 0;
+	background-color: #f2f2f2;
+	z-index: 1;
+}
+
+/* Mobile-Friendly Styles */
+@media (max-width: 768px) {
+	.table-container {
+		overflow-x: scroll; /* Ensure scroll on smaller devices */
+	}
+
+	.responsive-table {
+		min-width: 500px; /* Prevent the table from being squeezed */
+	}
+}

@@ -16,7 +16,7 @@ const CashFlowData = () => {
 					"https://real-time-finance-data.p.rapidapi.com/company-cash-flow",
 					{
 						params: {
-							symbol: "MSFT:NASDAQ",
+							symbol: "TSLA:NASDAQ",
 							period: "QUARTERLY",
 							language: "en",
 						},

@@ -14,7 +14,7 @@ const StockRecommendations = () => {
 			const options = {
 				method: "GET",
 				url: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-recommendations",
-				params: { symbol: "MSFT" },
+				params: { symbol: "TSLA" },
 				headers: {
 					"x-rapidapi-key":
 						"3db9226ad1mshca8d9d6faf15af9p17d01fjsne8e43d0bb590",

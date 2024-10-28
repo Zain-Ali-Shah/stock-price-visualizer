@@ -1,0 +1,37 @@
+/* General Table Styles */
+.table-container {
+	width: 100%;
+	overflow-x: auto; /* Enable horizontal scroll */
+}
+
+.responsive-table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 600px; /* Ensures the table doesn't shrink too much */
+}
+
+.responsive-table th,
+.responsive-table td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+}
+
+/* Sticky Header for a Better UX */
+.responsive-table thead th {
+	position: sticky;
+	top: 0;
+	background-color: #f2f2f2;
+	z-index: 1;
+}
+
+/* Mobile-Friendly Styles */
+@media (max-width: 768px) {
+	.table-container {
+		overflow-x: scroll; /* Ensure scroll on smaller devices */
+	}
+
+	.responsive-table {
+		min-width: 500px; /* Prevent the table from being squeezed */
+	}
+}

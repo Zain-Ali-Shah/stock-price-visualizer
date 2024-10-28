@@ -21,7 +21,7 @@ const SMAData = () => {
 					interval: "daily",
 					series_type: "close",
 					function: "SMA",
-					symbol: "MSFT", // Microsoft stock symbol
+					symbol: "TSLA", // Microsoft stock symbol
 					datatype: "json",
 				},
 				headers: {

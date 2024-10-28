@@ -13,7 +13,7 @@ const IncomeStatement = () => {
 				method: "GET",
 				url: "https://real-time-finance-data.p.rapidapi.com/company-income-statement",
 				params: {
-					symbol: "MSFT:NASDAQ",
+					symbol: "TSLA:NASDAQ",
 					period: "QUARTERLY",
 					language: "en",
 				},

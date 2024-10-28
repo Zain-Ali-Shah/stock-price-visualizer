@@ -16,7 +16,7 @@ const BalanceSheetTable = () => {
 					"https://real-time-finance-data.p.rapidapi.com/company-balance-sheet",
 					{
 						params: {
-							symbol: "MSFT:NASDAQ",
+							symbol: "TSLA:NASDAQ",
 							period: "QUARTERLY",
 							language: "en",
 						},
