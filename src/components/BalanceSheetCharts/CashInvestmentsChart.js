@@ -31,10 +31,10 @@ const CashInvestmentsChart = ({ financialData }) => {
 		labels,
 		datasets: [
 			{
-				label: "Cash & Short Term Investments (in USD)",
-				data: financialData.map((item) => item.cashInvestments),
+				label: "Cash & Short Term Investments",
+				data: financialData.map((item) => item.cashInvestments / 1e9),
 				backgroundColor: "rgba(247, 114, 230, 0.5)", // Orange color for bars
-				borderColor: "rgba(255, 159, 64, 1)",
+				borderColor: "rgba(247, 114, 230, 0.5)",
 				borderWidth: 1,
 			},
 		],
@@ -48,16 +48,12 @@ const CashInvestmentsChart = ({ financialData }) => {
 			},
 			title: {
 				display: true,
-				text: "Cash & Short Term Investments Over Time",
+				text: "Cash & Short Term Investments Over Time (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Cash & Short Term Investments (in USD)",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

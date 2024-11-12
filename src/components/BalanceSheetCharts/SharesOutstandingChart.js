@@ -32,9 +32,9 @@ const SharesOutstandingChart = ({ financialData }) => {
 		datasets: [
 			{
 				label: "Shares Outstanding",
-				data: financialData.map((item) => item.sharesOutstanding),
+				data: financialData.map((item) => item.sharesOutstanding / 1e9),
 				backgroundColor: "rgba(28, 81, 230, 1)",
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "rgba(28, 81, 230, 1)",
 				borderWidth: 1,
 			},
 		],
@@ -48,16 +48,12 @@ const SharesOutstandingChart = ({ financialData }) => {
 			},
 			title: {
 				display: true,
-				text: "Shares Outstanding Over Time",
+				text: "Shares Outstanding Over Time (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Shares Outstanding",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

@@ -22,7 +22,7 @@ const NetProfitMarginBarChart = ({ data }) => {
 				label: "Net Profit Margin (%)",
 				data: data.map((item) => item.netProfitMargin),
 				backgroundColor: "green", // Light teal color
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "green",
 				borderWidth: 1,
 			},
 		],
@@ -34,22 +34,14 @@ const NetProfitMarginBarChart = ({ data }) => {
 			legend: {
 				position: "top",
 			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						return `${context.raw}%`; // Format tooltip with percentage
-					},
-				},
+			title: {
+				display: true,
+				text: "Net Profit Margin (%)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				ticks: {
-					callback: function (value) {
-						return `${value}%`; // Format y-axis ticks as percentages
-					},
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

@@ -27,24 +27,24 @@ const CashFlowBreakdownChart = ({ cashFlowData }) => {
 		labels: cashFlowData.map((item) => `Q${item.quarter} ${item.year}`),
 		datasets: [
 			{
-				label: "Cash from Operations (in billions USD)",
+				label: "Cash from Operations",
 				data: cashFlowData.map((item) => item.cashFromOperations / 1e9), // Convert to billions
 				backgroundColor: "red",
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "red",
 				borderWidth: 1,
 			},
 			{
-				label: "Cash from Investing (in billions USD)",
+				label: "Cash from Investing",
 				data: cashFlowData.map((item) => item.cashFromInvesting / 1e9),
 				backgroundColor: "rgba(184, 35, 132, 0.5)",
-				borderColor: "rgba(255, 159, 64, 1)",
+				borderColor: "rgba(184, 35, 132, 0.5)",
 				borderWidth: 1,
 			},
 			{
-				label: "Cash from Financing (in billions USD)",
+				label: "Cash from Financing",
 				data: cashFlowData.map((item) => item.cashFromFinancing / 1e9),
 				backgroundColor: "rgba(196, 235, 68, 0.5)",
-				borderColor: "rgba(153, 102, 255, 1)",
+				borderColor: "rgba(196, 235, 68, 0.5)",
 				borderWidth: 1,
 			},
 		],
@@ -58,14 +58,12 @@ const CashFlowBreakdownChart = ({ cashFlowData }) => {
 			},
 			title: {
 				display: true,
-				text: "Cash Flow Breakdown by Quarter",
+				text: "Cash Flow Breakdown by Quarter (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				ticks: {
-					callback: (value) => `${value}B`, // Display y-axis values in billions
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

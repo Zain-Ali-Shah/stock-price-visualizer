@@ -19,10 +19,10 @@ const EarningsPerShareBarChart = ({ data }) => {
 		labels: data.map((item) => `Q${item.quarter} ${item.year}`),
 		datasets: [
 			{
-				label: "Earnings Per Share (EPS)",
+				label: "Earnings Per Share",
 				data: data.map((item) => item.earningsPerShare),
 				backgroundColor: "purple", // purple color
-				borderColor: "rgba(153, 102, 255, 1)",
+				borderColor: "purple",
 				borderWidth: 1,
 			},
 		],
@@ -34,22 +34,14 @@ const EarningsPerShareBarChart = ({ data }) => {
 			legend: {
 				position: "top",
 			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						return `$${context.raw.toFixed(2)}`; // Tooltip formatting
-					},
-				},
+			title: {
+				display: true,
+				text: "Earnings Per Share",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				ticks: {
-					callback: function (value) {
-						return `$${value}`; // Format y-axis ticks as currency
-					},
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

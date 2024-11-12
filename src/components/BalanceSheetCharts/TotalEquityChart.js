@@ -31,10 +31,10 @@ const TotalEquityChart = ({ financialData }) => {
 		labels,
 		datasets: [
 			{
-				label: "Total Equity (USD)",
-				data: financialData.map((item) => item.totalEquity),
+				label: "Total Equity",
+				data: financialData.map((item) => item.totalEquity / 1e9),
 				backgroundColor: "rgba(15, 145, 28, 0.5)", // Light purple bars
-				borderColor: "rgba(153, 102, 255, 1)",
+				borderColor: "rgba(15, 145, 28, 0.5)",
 				borderWidth: 1,
 			},
 		],
@@ -48,16 +48,12 @@ const TotalEquityChart = ({ financialData }) => {
 			},
 			title: {
 				display: true,
-				text: "Total Equity Over Time",
+				text: "Total Equity Over Time (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Total Equity (USD)",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

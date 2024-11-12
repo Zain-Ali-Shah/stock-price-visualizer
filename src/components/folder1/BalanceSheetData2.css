@@ -14,7 +14,7 @@
 
 	.chart-row > div {
 		flex: 1; /* Ensure equal width for each chart */
-		max-width: 30%; /* Restrict each chart to take 30% of row width */
+		max-width: 33%; /* Restrict each chart to take 30% of row width */
 		background-color: #fff;
 		padding: 10px;
 		border-radius: 8px;

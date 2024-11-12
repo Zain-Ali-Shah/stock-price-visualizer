@@ -19,10 +19,10 @@ const RevenueBarChart = ({ data }) => {
 		labels: data.map((item) => `Q${item.quarter} ${item.year}`),
 		datasets: [
 			{
-				label: "Revenue (in USD)",
-				data: data.map((item) => item.revenue),
+				label: "Revenue",
+				data: data.map((item) => item.revenue / 1e9),
 				backgroundColor: "rgba(189, 47, 137, 0.6)", // Light teal color
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "rgba(189, 47, 137, 0.6)",
 				borderWidth: 1,
 			},
 		],
@@ -34,22 +34,14 @@ const RevenueBarChart = ({ data }) => {
 			legend: {
 				position: "top",
 			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						return `$${context.raw.toLocaleString()}`;
-					},
-				},
+			title: {
+				display: true,
+				text: "Revenue (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				ticks: {
-					callback: function (value) {
-						return `$${value.toLocaleString()}`; // Format y-axis ticks
-					},
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

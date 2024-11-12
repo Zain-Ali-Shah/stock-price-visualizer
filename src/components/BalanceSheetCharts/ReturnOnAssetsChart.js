@@ -34,7 +34,7 @@ const ReturnOnAssetsChart = ({ financialData }) => {
 				label: "Return on Assets (%)",
 				data: financialData.map((item) => item.returnOnAssets),
 				backgroundColor: "rgba(94, 49, 85, 1)",
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "rgba(94, 49, 85, 1)",
 				borderWidth: 1,
 			},
 		],
@@ -53,11 +53,7 @@ const ReturnOnAssetsChart = ({ financialData }) => {
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Return on Assets (%)",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

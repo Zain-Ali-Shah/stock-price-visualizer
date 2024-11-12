@@ -19,10 +19,10 @@ const EBITDABarChart = ({ data }) => {
 		labels: data.map((item) => `Q${item.quarter} ${item.year}`),
 		datasets: [
 			{
-				label: "EBITDA (in USD)",
-				data: data.map((item) => item.ebitda),
+				label: "EBITDA",
+				data: data.map((item) => item.ebitda / 1e9),
 				backgroundColor: "brown",
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "brown",
 				borderWidth: 1,
 			},
 		],
@@ -34,23 +34,14 @@ const EBITDABarChart = ({ data }) => {
 			legend: {
 				position: "top",
 			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						const value = context.raw.toLocaleString();
-						return `USD ${value}`; // Format tooltip values
-					},
-				},
+			title: {
+				display: true,
+				text: "EBITDA (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				ticks: {
-					callback: function (value) {
-						return `USD ${value.toLocaleString()}`; // Format y-axis values
-					},
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

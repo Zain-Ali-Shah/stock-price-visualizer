@@ -39,7 +39,7 @@ const TeslaEarningsScatterPlot = ({ teslaEarningsData }) => {
 					x: item.date,
 					y: item.estimatedEarnings,
 				})),
-				backgroundColor: "rgba(255, 99, 132, 0.7)", // Red color
+				backgroundColor: "rgba(230, 230, 230, 0.7)", // Red color
 				pointRadius: 8,
 			},
 		],
@@ -58,11 +58,7 @@ const TeslaEarningsScatterPlot = ({ teslaEarningsData }) => {
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Earnings",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 			x: {
 				type: "category", // Keep the quarters in sequence

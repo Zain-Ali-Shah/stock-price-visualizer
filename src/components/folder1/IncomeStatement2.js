@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RevenueBarChart from "../IncomeStatementCharts/RevenueBarChart";
 import OperatingExpenseBarChart from "../IncomeStatementCharts/OperatingExpenseBarChart";
 import NetIncomeBarChart from "../IncomeStatementCharts/NetIncomeBarChart";
@@ -107,9 +107,7 @@ const incomeStatementData = [
 	},
 ];
 
-const IncomeStatement2 = () => {
-	const [selectedYear, setSelectedYear] = useState("");
-
+const IncomeStatement2 = ({ selectedYear }) => {
 	// Filter data based on selected year
 	const filteredData =
 		selectedYear === ""
@@ -118,37 +116,10 @@ const IncomeStatement2 = () => {
 					(item) => item.year === parseInt(selectedYear)
 			  );
 
-	// Extract unique years for dropdown
-	const uniqueYears = [
-		...new Set(incomeStatementData.map((item) => item.year)),
-	];
-
 	return (
 		<>
 			<div style={{ margin: "20px" }}>
 				<h2>Income Statement Data</h2>
-
-				{/* Dropdown to select the year */}
-				<div
-					style={{
-						marginBottom: "20px",
-						display: "flex",
-						justifyContent: "flex-end", // Align to right
-					}}
-				>
-					<label style={{ marginRight: "10px" }}>Select Year:</label>
-					<select
-						value={selectedYear}
-						onChange={(e) => setSelectedYear(e.target.value)}
-					>
-						<option value="">All Years</option>
-						{uniqueYears.map((year) => (
-							<option key={year} value={year}>
-								{year}
-							</option>
-						))}
-					</select>
-				</div>
 
 				{/* Table to display filtered data */}
 				<div className="table-container">

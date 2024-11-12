@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import NetIncomeChart from "../CashFlowCharts/NetIncomeChart";
 import FreeCashFlowChart from "../CashFlowCharts/FreeCashFlowChart";
 import CashFlowBreakdownChart from "../CashFlowCharts/CashFlowBreakdownChart";
 import NetChangeInCashChart from "../CashFlowCharts/NetChangeInCashChart";
 
-import "./CashFlowData2.css";
+import "./BalanceSheetData2.css";
 
 const cashFlowData = [
 	{
@@ -97,44 +97,17 @@ const cashFlowData = [
 	},
 ];
 
-const CashFlowData2 = () => {
-	const [selectedYear, setSelectedYear] = useState("");
-
+const CashFlowData2 = ({ selectedYear }) => {
 	// Filter the data based on the selected year
 	const filteredData =
 		selectedYear === ""
 			? cashFlowData
 			: cashFlowData.filter((item) => item.year === parseInt(selectedYear));
 
-	// Extract unique years for the dropdown options
-	const uniqueYears = [...new Set(cashFlowData.map((item) => item.year))];
-
 	return (
 		<>
 			<div style={{ margin: "20px" }}>
 				<h2>Cash Flow Data</h2>
-
-				{/* Dropdown to select the year */}
-				<div
-					style={{
-						marginBottom: "20px",
-						display: "flex",
-						justifyContent: "flex-end", // Align to right
-					}}
-				>
-					<label style={{ marginRight: "10px" }}>Select Year:</label>
-					<select
-						value={selectedYear}
-						onChange={(e) => setSelectedYear(e.target.value)}
-					>
-						<option value="">All Years</option>
-						{uniqueYears.map((year) => (
-							<option key={year} value={year}>
-								{year}
-							</option>
-						))}
-					</select>
-				</div>
 
 				{/* Table to display the filtered data */}
 				<div className="table-container">
@@ -184,11 +157,11 @@ const CashFlowData2 = () => {
 					<div>
 						<FreeCashFlowChart cashFlowData={filteredData} />
 					</div>
-				</div>
-				<div className="chart-row">
 					<div>
 						<CashFlowBreakdownChart cashFlowData={filteredData} />
 					</div>
+				</div>
+				<div className="chart-row">
 					<div>
 						<NetChangeInCashChart cashFlowData={filteredData} />
 					</div>

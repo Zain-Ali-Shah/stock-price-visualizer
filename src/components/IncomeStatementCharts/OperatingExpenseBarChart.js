@@ -19,10 +19,10 @@ const OperatingExpenseBarChart = ({ data }) => {
 		labels: data.map((item) => `Q${item.quarter} ${item.year}`),
 		datasets: [
 			{
-				label: "Operating Expense (in USD)",
-				data: data.map((item) => item.operatingExpense),
+				label: "Operating Expense",
+				data: data.map((item) => item.operatingExpense / 1e9),
 				backgroundColor: "yellow", // Light red color
-				borderColor: "rgba(255, 99, 132, 1)",
+				borderColor: "yellow",
 				borderWidth: 1,
 			},
 		],
@@ -34,22 +34,14 @@ const OperatingExpenseBarChart = ({ data }) => {
 			legend: {
 				position: "top",
 			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						return `$${context.raw.toLocaleString()}`;
-					},
-				},
+			title: {
+				display: true,
+				text: "Operating Expense (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				ticks: {
-					callback: function (value) {
-						return `$${value.toLocaleString()}`; // Format y-axis ticks
-					},
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

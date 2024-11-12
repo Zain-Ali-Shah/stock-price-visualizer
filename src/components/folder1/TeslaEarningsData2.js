@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TeslaEarningsScatterPlot from "../TeslaEarningsCharts/TeslaEarningsScatterPlot";
 
 import "./TeslaEarningsData2.css";
+import "./BalanceSheetData2.css";
 
 const teslaEarningsData = [
 	{ date: "3Q2023", actualEarnings: 0.66, estimatedEarnings: 0.72 },
@@ -79,7 +80,13 @@ const TeslaEarningsData2 = () => {
 					</table>
 				</div>
 			</div>
-			<TeslaEarningsScatterPlot teslaEarningsData={filteredData} />
+			<div className="chart-container">
+				<div className="chart-row">
+					<div>
+						<TeslaEarningsScatterPlot teslaEarningsData={filteredData} />
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };

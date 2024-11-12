@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ALBarChart from "../BalanceSheetCharts/ALBarChart";
 import SharesOutstandingChart from "../BalanceSheetCharts/SharesOutstandingChart";
 import CashInvestmentsChart from "../BalanceSheetCharts/CashInvestmentsChart";
@@ -6,6 +6,7 @@ import PriceToBookChart from "../BalanceSheetCharts/PriceToBookChart";
 import TotalEquityChart from "../BalanceSheetCharts/TotalEquityChart";
 import ReturnOnAssetsChart from "../BalanceSheetCharts/ReturnOnAssetsChart";
 import ReturnOnCapitalChart from "../BalanceSheetCharts/ReturnOnCapitalChart";
+// import YearDropdown from "./yearDropdown";
 
 import "./BalanceSheetData2.css";
 
@@ -118,44 +119,17 @@ const financialData = [
 ];
 
 // Table Component
-const BalanceSheetData2 = () => {
-	const [selectedYear, setSelectedYear] = useState(""); // State to store selected year
-
+const BalanceSheetData2 = ({ selectedYear }) => {
 	// Filter the data based on the selected year
 	const filteredData =
 		selectedYear === ""
 			? financialData // Show all data if no year is selected
 			: financialData.filter((item) => item.year === parseInt(selectedYear));
 
-	// Extract unique years for the dropdown options
-	const uniqueYears = [...new Set(financialData.map((item) => item.year))];
-
 	return (
 		<>
 			<div style={{ margin: "20px" }}>
 				<h2>Balance Sheet Data</h2>
-
-				{/* Dropdown to select the year */}
-				<div
-					style={{
-						marginBottom: "20px",
-						display: "flex",
-						justifyContent: "flex-end", // Align to right
-					}}
-				>
-					<label style={{ marginRight: "10px" }}>Select Year:</label>
-					<select
-						value={selectedYear}
-						onChange={(e) => setSelectedYear(e.target.value)}
-					>
-						<option value="">All Years</option>
-						{uniqueYears.map((year) => (
-							<option key={year} value={year}>
-								{year}
-							</option>
-						))}
-					</select>
-				</div>
 
 				{/* Table to display the filtered data */}
 				<div className="table-container">

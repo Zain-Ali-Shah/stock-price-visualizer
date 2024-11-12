@@ -32,16 +32,16 @@ const BarChart = ({ financialData }) => {
 		datasets: [
 			{
 				label: "Total Liabilities",
-				data: financialData.map((item) => item.totalLiabilities),
+				data: financialData.map((item) => item.totalLiabilities / 1e9), // Convert to billions
 				backgroundColor: "blue",
-				borderColor: "rgba(255, 99, 132, 1)",
+				borderColor: "blue",
 				borderWidth: 1,
 			},
 			{
 				label: "Total Assets",
-				data: financialData.map((item) => item.totalAssets),
+				data: financialData.map((item) => item.totalAssets / 1e9), // Convert to billions
 				backgroundColor: "yellow",
-				borderColor: "rgba(54, 162, 235, 1)",
+				borderColor: "yellow",
 				borderWidth: 1,
 			},
 		],
@@ -55,16 +55,12 @@ const BarChart = ({ financialData }) => {
 			},
 			title: {
 				display: true,
-				text: "Total Assets vs Total Liabilities",
+				text: "Total Assets vs Total Liabilities (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Value (in Scientific Notation)",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

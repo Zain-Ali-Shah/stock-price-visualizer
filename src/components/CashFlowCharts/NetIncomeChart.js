@@ -27,10 +27,10 @@ const NetIncomeChart = ({ cashFlowData }) => {
 		labels: cashFlowData.map((item) => `Q${item.quarter} ${item.year}`), // Label as Quarter + Year
 		datasets: [
 			{
-				label: "Net Income (in billions USD)",
+				label: "Net Income",
 				data: cashFlowData.map((item) => item.netIncome / 1e9), // Convert to billions for readability
 				backgroundColor: "rgba(20, 39, 135, 0.5)", // Bar color
-				borderColor: "rgba(75, 192, 192, 1)", // Border color
+				borderColor: "rgba(20, 39, 135, 0.5)", // Border color
 				borderWidth: 1,
 			},
 		],
@@ -44,7 +44,12 @@ const NetIncomeChart = ({ cashFlowData }) => {
 			},
 			title: {
 				display: true,
-				text: "Net Income by Quarter",
+				text: "Net Income by Quarter (in Billions)",
+			},
+		},
+		scales: {
+			y: {
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

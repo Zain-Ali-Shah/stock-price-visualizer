@@ -19,10 +19,10 @@ const NetIncomeBarChart = ({ data }) => {
 		labels: data.map((item) => `Q${item.quarter} ${item.year}`),
 		datasets: [
 			{
-				label: "Net Income (in USD)",
-				data: data.map((item) => item.netIncome),
+				label: "Net Income",
+				data: data.map((item) => item.netIncome / 1e9),
 				backgroundColor: "blue", // blue color
-				borderColor: "rgba(54, 162, 235, 1)",
+				borderColor: "blue",
 				borderWidth: 1,
 			},
 		],
@@ -34,22 +34,14 @@ const NetIncomeBarChart = ({ data }) => {
 			legend: {
 				position: "top",
 			},
-			tooltip: {
-				callbacks: {
-					label: function (context) {
-						return `$${context.raw.toLocaleString()}`; // Format tooltip value
-					},
-				},
+			title: {
+				display: true,
+				text: "Net Income (in Billions)",
 			},
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				ticks: {
-					callback: function (value) {
-						return `$${value.toLocaleString()}`; // Format y-axis ticks
-					},
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};

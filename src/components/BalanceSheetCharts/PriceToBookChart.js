@@ -34,7 +34,7 @@ const PriceToBookChart = ({ financialData }) => {
 				label: "Price to Book Ratio",
 				data: financialData.map((item) => item.priceToBook),
 				backgroundColor: "rgba(145, 17, 15, 0.5)",
-				borderColor: "rgba(75, 192, 192, 1)",
+				borderColor: "rgba(145, 17, 15, 0.5)",
 				borderWidth: 1,
 			},
 		],
@@ -53,11 +53,7 @@ const PriceToBookChart = ({ financialData }) => {
 		},
 		scales: {
 			y: {
-				beginAtZero: true,
-				title: {
-					display: true,
-					text: "Price to Book Ratio",
-				},
+				display: false, // Completely hide the Y-axis
 			},
 		},
 	};
